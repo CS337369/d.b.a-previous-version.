@@ -1,6 +1,6 @@
 # djangoboard_api
 
-* 현재 진행중
+* boardapi, boardapi_server는 현재 공부하며 진행중
 
 ---
 
