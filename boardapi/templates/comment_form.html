@@ -1,0 +1,38 @@
+{% load static %}
+{% block body %}
+
+{% if not comment_list %}
+    <p class="text-center">댓글이 없습니다! </p>
+{% endif %}
+
+<div style="margin:20px 0;">
+    {% for i in comment_list %}
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" >
+            <tr style="height:45px;border-top:solid 1px #dddddd;">
+                <td width="20%" align="center">작성자</td>
+                <td width="80%" align="left">{{ comment_list.c_writer }} </td>
+            </tr>
+            <tr style="height:45px;border-top:solid 1px #dddddd;">
+                <td width="8%" align="left" style="padding:5px 0;">
+                    <td width="80%" align="left">{{ comment_list.c_note }} </td>  
+            </tr>
+            <td width="10%" align="right" style="padding:5px 0;"></td>
+            {% if user.username == i.b_writer or user.is_staff %}
+                <a href="/board/{{ i.0 }}/delete/" class="btn btn-outline-success">삭제</a>
+            {% endif %}
+        </table>
+    {% endfor %}
+<div>
+    <tr style="height:45px;border-top:solid 1px #dddddd;">
+        <td width="60%" align="left"><textarea name="c_writer" style="width:80%;" placeholder="작성자" rows="1"></textarea></td>
+        <td width="60%" align="left"><textarea name="c_note" style="width:80%;" placeholder="댓글을 작성하세요" rows="4"></textarea></td>
+    </tr>
+    <form action="{% url 'comment_create'  %}" method="POST">
+        {% csrf_token %}
+        <div>
+            {% comment %} <a href="{% url 'comment_create' %}" class="btn btn-outline-success" align="right">댓글등록</a> {% endcomment %}
+            <input type="submit" class="btn btn-outline-success" align="right">
+            <input type="hidden" name="board_id" value="{{ board.pk }}">
+        </div>
+</div>
+{% endblock %}

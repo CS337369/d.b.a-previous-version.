@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'assets/js/main.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+
+{% include "navbar.html" %}
+
+    <main id="main">
+
+        <!-- ======= Breadcrumbs ======= -->
+        <section id="breadcrumbs" class="breadcrumbs">
+          <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+              <h4>게시판 상세보기</h4>
+              <ol>
+                <li><a href="/">Home</a></li>
+                <li><a href="/board/">게시판</a></li>
+                <li>상세보기</li>
+              </ol>
+            </div>
+
+          </div>
+        </section><!-- End Breadcrumbs -->
+
+        <!-- ======= Services Section ======= -->
+        <section id="services" class="services">
+          <div class="container">
+
+            <div class="section-title" data-aos="fade-up">
+
+                <div style="margin:20px 0;text-align:center;">
+                <h3>게시판 상세보기</h3>
+                </div>
+                {% if not board_detail %}
+                    <p class="text-center">내용이 없습니다! </p>
+                {% else %}
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr style="height:45px;border-top:solid 1px #dddddd;">
+                            <td width="20%" align="center">제목</td>
+                            <td width="80%" align="left">{{ board_detail.b_title }} </td>
+                        </tr>
+                        <tr style="height:45px;border-top:solid 1px #dddddd;">
+                            <td width="20%" align="center">작성자</td>
+                            <td width="80%" align="left">{{ board_detail.b_writer }} </td>
+                        </tr>
+                        <tr style="height:45px;border-top:solid 1px #dddddd;">
+                            <td width="20%" align="center">내용</td>
+                            <td width="80%" align="left">{{ board_detail.b_note }}</td>
+                        </tr>
+                        <tr style="height:45px;border-top:solid 1px #dddddd;">
+                            <td width="20%" align="center">시간</td>
+                            <td width="80%" align="left">{{ board_detail.b_date }} </td>
+                        </tr>
+                        <tr style="height:60px;border-top:solid 1px #dddddd;" align="center">
+                            <td width="100%" colspan="2">
+                                <a href="/board/{{ board_detail.b_no }}/edit/" class="btn btn-outline-success">수정</a>
+                                <button class="btn btn-outline-success my-2 my-sm-0" style="margin-right:10px;" onclick="location.href='/board/'">목록</button>
+                            </td>
+                        </tr>
+                            <tr style="height:45px;border-top:solid 1px #dddddd;">
+                                <td width="20%" align="center">댓글 </td>
+                                <td width="80%" align="left">({{ board.comment_set.all.count }})</td>
+                            </tr>
+                    </table>
+
+                {% include "comment_form.html" with board=target_board %}
+                
+                {% endif %}
+
+            </div>
+
+          </div>
+        </section><!-- End Services Section -->
+
+    </main><!-- End #main -->
+
+    {% include "footer.html" %}
+
+{% endblock %}

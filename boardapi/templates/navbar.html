@@ -1,0 +1,26 @@
+{% load static %}
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-center">
+<div class="container d-flex align-items-center">
+    <div class="logo mr-auto">
+        <h1 class="text-light"><a href="/"><span>장고 게시판</span></a></h1>
+    </div>
+
+    <nav class="nav-menu d-none d-lg-block">
+    <ul>
+        <li class="active">
+            <a href="/">Home</a>
+        </li>
+        <li>
+            <a href="/board">Board</a>
+        </li>
+        {% comment %} {% if user.is_authenticated %} {% endcomment %}
+            <li class="get-started"><a href="{% url 'logout' %}">로그아웃</a></li>
+        {% comment %} {% else %} {% endcomment %}
+            {% comment %} <li class="get-started"><a href="{% url 'login' %}">로그인</a></li> {% endcomment %}
+        {% comment %} {% endif %} {% endcomment %}
+    </ul>
+    </nav><!-- .nav-menu -->
+
+</div>
+</header><!-- End Header -->
